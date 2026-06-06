@@ -1,0 +1,80 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# =========================
+# IDEs
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Operating System Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Streamlit
+# =========================
+.streamlit/
+
+# =========================
+# Testing
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+*.env
+
+# =========================
+# Financial Data (IMPORTANT)
+# =========================
+
+# Raw bank exports
+data/raw/*.csv
+
+# Processed transaction data
+data/processed/*.csv
+
+# Excel files
+data/raw/*.xlsx
+data/processed/*.xlsx
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# JSON exports
+data/raw/*.json
+data/processed/*.json
+
+# Plaid credentials and secrets
+secrets/
+credentials/
+config/secrets.toml
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
