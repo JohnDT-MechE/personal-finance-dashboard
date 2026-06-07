@@ -2,8 +2,11 @@ from pathlib import Path
 
 import pandas as pd
 
-
-REQUIRED_COLUMNS = ["date", "description", "amount"]
+from src.transaction_schema import (
+    DEFAULT_TRANSACTION_VALUES,
+    TRANSACTION_COLUMNS,
+    validate_transaction_columns,
+)
 
 
 def load_transactions_csv(file_path: str | Path) -> pd.DataFrame:
@@ -34,16 +37,7 @@ def load_transactions_csv(file_path: str | Path) -> pd.DataFrame:
         .str.replace(" ", "_")
     )
 
-    missing_columns = [
-        column for column in REQUIRED_COLUMNS
-        if column not in transactions.columns
-    ]
-
-    if missing_columns:
-        raise ValueError(
-            f"Missing required columns: {missing_columns}"
-            f"Required columns are: {REQUIRED_COLUMNS}"
-        )
+    validate_transaction_columns(list(transactions.columns))
     
     transactions["date"] = pd.to_datetime(transactions["date"], errors="coerce")
     transactions["amount"] = pd.to_numeric(transactions["amount"], errors="coerce")
@@ -51,12 +45,11 @@ def load_transactions_csv(file_path: str | Path) -> pd.DataFrame:
 
     transactions = transactions.dropna(subset=["date", "amount"])
 
-    if "category" not in transactions.columns:
-        transactions["category"] = "Uncategorized"
-
-    if "account" not in transactions.columns:
-        transactions["account"] = "Unknown"
+    for column, default_value in DEFAULT_TRANSACTION_VALUES.items():
+        if column not in transactions.columns:
+            transactions[column] = default_value
     
+    transactions = transactions[TRANSACTION_COLUMNS]
     transactions = transactions.sort_values("date", ascending=False)
 
     return transactions

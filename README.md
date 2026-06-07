@@ -45,6 +45,7 @@ personal-finance-dashboard/
 │   ├── __init__.py
 │   ├── data_loader.py
 │   ├── categorizer.py
+│   ├── transaction_schema.py
 │   ├── budget.py
 │   ├── networth.py
 │   ├── visualizations.py
